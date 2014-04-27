@@ -30,7 +30,7 @@ project.init = function (gulp, settings) {
 
   // - - - - 8-< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  settings = deepExtend(project.settings, settings);
+  settings = deepExtend(project.settings, settings || {});
 
   // - - - - 8-< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
