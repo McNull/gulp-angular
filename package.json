@@ -1,6 +1,6 @@
 {
   "name": "gulp-angular",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Opinionated domain driven AngularJs project builder based on Gulp.",
   "main": "index.js",
   "scripts": {
@@ -38,6 +38,8 @@
     "gulp-ng-html2js": "~0.1.6",
     "gulp-minify-html": "~0.1.3",
     "gulp-minify-css": "~0.3.1",
-    "gulp-size": "~0.3.0"
+    "gulp-size": "~0.3.0",
+    "gulp-svgmin": "~0.4.5",
+    "express": "~4.1.1"
   }
 }

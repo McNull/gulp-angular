@@ -17,7 +17,8 @@ var utils = require('./lib/utils');
 var project = module.exports = {
   settings: require('./lib/settings'),
   vendor: require('./lib/vendor'),
-  modules: require('./lib/modules')
+  modules: require('./lib/modules'),
+  server: require('./lib/server')
 };
 
 // - - - - 8-< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -48,6 +49,7 @@ project.init = function (gulp, settings) {
 
   project.vendor.init(gulp);
   project.modules.init(gulp);
+  project.server.init(gulp);
 
   // - - - - 8-< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
