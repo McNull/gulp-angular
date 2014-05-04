@@ -48,7 +48,13 @@ project.init = function (gulp, settings) {
     gutil.log('Target build set to', gutil.colors.yellow('debug'));
   }
 
-  gutil.log('Target can be specified with', gutil.colors.cyan('--target TARGET'))
+  gutil.log('Target can be specified with', gutil.colors.cyan('--target (releas|debug)'))
+
+  // - - - - 8-< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  gutil.log('Source directory:', gutil.colors.cyan(settings.folders.src));
+  gutil.log('Destination directory:', gutil.colors.cyan(settings.folders.dest));
+  gutil.log('Vendor directory:', gutil.colors.cyan(settings.folders.vendor));
 
   // - - - - 8-< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -64,7 +70,7 @@ project.init = function (gulp, settings) {
 
   gulp.task('clean', function () {
 
-    return gulp.src(folders.build, {read: false}).pipe(gclean());
+    return gulp.src(folders.dest, {read: false}).pipe(gclean());
 
   });
 
@@ -97,7 +103,7 @@ project.init = function (gulp, settings) {
         starttag: '<!-- inject:vendor:{{ext}} -->'
       }))
       .pipe(ginject(modules))
-      .pipe(gulp.dest(folders.build));
+      .pipe(gulp.dest(folders.dest));
 
   });
 
