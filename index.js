@@ -37,10 +37,14 @@ project.init = function (gulp, settings) {
 
   var argv = minimist(process.argv.slice(2));
 
-  settings.release = argv.target == 'release' ||
-    argv.target == 'production' ||
+  settings.release =
     process.env.NODE_ENV == 'production' ||
     process.env.NODE_ENV == 'release';
+
+  if(argv.target != undefined) {
+    settings.release = argv.target == 'release' ||
+                       argv.target == 'production';
+  }
 
   if (settings.release) {
     gutil.log('Target build set to', gutil.colors.yellow('release'));
@@ -48,7 +52,7 @@ project.init = function (gulp, settings) {
     gutil.log('Target build set to', gutil.colors.yellow('debug'));
   }
 
-  gutil.log('Target can be specified with', gutil.colors.cyan('--target (releas|debug)'))
+  gutil.log('Target can be specified with', gutil.colors.cyan('--target (release|debug)'))
 
   // - - - - 8-< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
