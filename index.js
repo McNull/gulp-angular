@@ -9,6 +9,7 @@ var gtap = require('gulp-tap');
 
 var deepExtend = require('deep-extend');
 var minimist = require('minimist');
+var es = require('event-stream');
 
 var utils = require('./lib/utils');
 
@@ -18,7 +19,8 @@ var project = module.exports = {
   settings: require('./lib/settings'),
   vendor: require('./lib/vendor'),
   modules: require('./lib/modules'),
-  server: require('./lib/server')
+  server: require('./lib/server'),
+  index: require('./lib/index-html')
 };
 
 // - - - - 8-< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -41,9 +43,9 @@ project.init = function (gulp, settings) {
     process.env.NODE_ENV == 'production' ||
     process.env.NODE_ENV == 'release';
 
-  if(argv.target != undefined) {
+  if (argv.target != undefined) {
     settings.release = argv.target == 'release' ||
-                       argv.target == 'production';
+      argv.target == 'production';
   }
 
   if (settings.release) {
@@ -65,57 +67,33 @@ project.init = function (gulp, settings) {
   project.vendor.init(gulp);
   project.modules.init(gulp);
   project.server.init(gulp);
+  project.index.init(gulp);
 
   // - - - - 8-< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  var folders = settings.folders;
+  gulp.task('vendor:clean', project.vendor.tasks.clean);
+  gulp.task('vendor', ['vendor:clean'], project.vendor.tasks.copy);
 
   // - - - - 8-< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  gulp.task('clean', function () {
-
-    return gulp.src(folders.dest, {read: false}).pipe(gclean());
-
-  });
-
-  // - - - - 8-< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-  gulp.task('index', ['modules', 'vendor'], function () {
-
-    var vendor = project.vendor.includes.all();
-    var modules = project.modules.includes.all();
-
-    if (settings.release) {
-
-      function preferMinified(file) {
-
-        // Locate the minified version
-
-        var filePath = file.path.replace(/\/([^\/]+)(\.min)?\.(\w+)$/, "/$1.min.$3");
-        if (fs.existsSync(filePath)) {
-          file.path = filePath;
-        }
-      }
-
-      vendor.pipe(gtap(preferMinified));
-      modules.pipe(gtap(preferMinified));
-    }
-
-    return gulp.src(folders.src + '/index.html')
-      .pipe(ginject(vendor, {
-        addPrefix: '/vendor',
-        starttag: '<!-- inject:vendor:{{ext}} -->'
-      }))
-      .pipe(ginject(modules))
-      .pipe(gulp.dest(folders.dest));
-
-  });
+  gulp.task('modules:clean', project.modules.tasks.clean);
+  gulp.task('modules:svg', ['modules:clean'], project.modules.tasks.scalableVectorGraphics);
+  gulp.task('modules:javascript', ['modules:clean'], project.modules.tasks.javascript);
+  gulp.task('modules:style', ['modules:clean'], project.modules.tasks.style);
+  gulp.task('modules', ['modules:javascript', 'modules:style', 'modules:svg'], project.modules.tasks.post);
 
   // - - - - 8-< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+  gulp.task('index:clean', project.index.tasks.clean);
+  gulp.task('index', ['modules', 'vendor'], project.index.tasks.make);
+
+  // - - - - 8-< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  gulp.task('clean', ['vendor:clean', 'modules:clean', 'index:clean']);
   gulp.task('build', ['index']);
   gulp.task('default', ['build']);
 
+  // - - - - 8-< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 };
 
 // - - - - 8-< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
