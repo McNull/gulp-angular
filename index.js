@@ -1,15 +1,9 @@
 // - - - - 8-< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-var fs = require('fs');
-
 var gutil = require('gulp-util');
-var gclean = require('gulp-clean');
-var ginject = require('gulp-inject');
-var gtap = require('gulp-tap');
 
 var deepExtend = require('deep-extend');
 var minimist = require('minimist');
-var es = require('event-stream');
 
 var utils = require('./lib/utils');
 
@@ -20,7 +14,8 @@ var project = module.exports = {
   vendor: require('./lib/vendor'),
   modules: require('./lib/modules'),
   server: require('./lib/server'),
-  index: require('./lib/index-html')
+  index: require('./lib/index-html'),
+  test: require('./lib/test.js')
 };
 
 // - - - - 8-< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -68,6 +63,7 @@ project.init = function (gulp, settings) {
   project.modules.init(gulp);
   project.server.init(gulp);
   project.index.init(gulp);
+  project.test.init(gulp);
 
   // - - - - 8-< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -94,6 +90,12 @@ project.init = function (gulp, settings) {
   gulp.task('default', ['build']);
 
   // - - - - 8-< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  gulp.task('test', ['build'], project.test.tasks.run);
+  gulp.task('watch', ['build'], project.test.tasks.watch);
+
+  // - - - - 8-< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 };
 
 // - - - - 8-< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

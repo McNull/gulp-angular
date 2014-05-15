@@ -43,6 +43,9 @@
     "express": "~4.1.1",
     "gulp-filter": "~0.4.1",
     "karma": "~0.12.16",
-    "gulp-karma": "0.0.4"
+    "gulp-karma": "0.0.4",
+    "glob": "~3.2.9",
+    "karma-jasmine": "~0.1.5",
+    "karma-phantomjs-launcher": "~0.1.4"
   }
 }
