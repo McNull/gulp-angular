@@ -1,6 +1,6 @@
 {
   "name": "gulp-angular",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Opinionated domain driven AngularJs project builder based on Gulp.",
   "main": "index.js",
   "scripts": {
@@ -21,7 +21,7 @@
     "url": "https://github.com/McNull/gulp-angular/issues"
   },
   "homepage": "https://github.com/McNull/gulp-angular",
-  "dependencies": {
+  "peerDependencies": {
     "gulp": "~3.6.2",
     "gulp-util": "~2.2.14",
     "gulp-clean": "~0.2.4",
