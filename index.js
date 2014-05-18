@@ -91,8 +91,8 @@ project.init = function (gulp, settings) {
 
   // - - - - 8-< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  gulp.task('test', ['build'], project.test.tasks.run);
-  gulp.task('watch', ['build'], project.test.tasks.watch);
+  gulp.task('test-run', ['build'], project.test.tasks.run);
+  gulp.task('test-watch', ['build'], project.test.tasks.watch);
 
   // - - - - 8-< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

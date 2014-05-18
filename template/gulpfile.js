@@ -28,17 +28,30 @@ var settings = {
 };
 
 // - - - - 8-< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// Initialize the project by providing the gulp instance and the settings.
 
 project.init(gulp, settings);
+
+// Inform the project of the modules
+
 project.modules
+
+  // Our main 'app' module
+
   .add('app')
-  .add('nullCarousel', {
-    folder: 'angular-null-carousel'
+
+  // Demo module ...
+
+  .add('ngLogo', {
+
+    // ... with different folder than the module name.
+
+    folder: 'angular-logo'
   });
 
 // - - - - 8-< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-module.exports = project;
+module.exports = project; // Needed for Karma
 
 // - - - - 8-< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

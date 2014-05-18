@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html ng-app="ng">
+<html ng-app="app" ng-controller="MainCtrl">
 <head lang="en">
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
-  <link rel="shortcut icon" href="">
+  <link rel="shortcut icon" href="app/assets/favicon.ico">
 
   <title></title>
 
@@ -18,7 +18,9 @@
 </head>
 <body>
 
-<header></header>
+<header>
+  <div app-navbar></div>
+</header>
 
 <section ng-view></section>
 
