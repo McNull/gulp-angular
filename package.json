@@ -47,6 +47,7 @@
     "glob": "~3.2.9",
     "karma-jasmine": "~0.1.5",
     "karma-phantomjs-launcher": "~0.1.4",
-    "gulp-autoprefixer": "~0.0.7"
+    "gulp-autoprefixer": "~0.0.7",
+    "karma-xml-reporter": "~0.1.4"
   }
 }
