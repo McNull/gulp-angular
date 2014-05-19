@@ -22,9 +22,7 @@ var settings = {
         'angular-mocks/angular-mocks.js'
       ]
     }
-  },
-
-  release: false
+  }
 };
 
 // - - - - 8-< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

@@ -34,13 +34,14 @@ project.init = function (gulp, settings) {
 
   var argv = minimist(process.argv.slice(2));
 
-  settings.release =
-    process.env.NODE_ENV == 'production' ||
-    process.env.NODE_ENV == 'release';
+  var target = argv.target || process.env.NODE_ENV;
 
-  if (argv.target != undefined) {
-    settings.release = argv.target == 'release' ||
-      argv.target == 'production';
+  if(target) {
+    target = target.toLowerCase();
+
+    if(target == 'production' || target == 'release') {
+      settings.release = true;
+    }
   }
 
   if (settings.release) {
