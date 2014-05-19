@@ -1,6 +1,6 @@
 {
   "name": "gulp-angular",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "Opinionated domain driven AngularJs project builder based on Gulp.",
   "main": "index.js",
   "scripts": {
